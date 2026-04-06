@@ -1,0 +1,91 @@
+name: Step 3, 깨진 사이드바 수정
+
+# This step listens for the learner opening, editing, or reopening a pull request.
+# This workflow updates from step 3 to step X.
+
+# This will run every time we open, edit, or reopen the pull request.
+# Reference: https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows
+on:
+  workflow_dispatch:
+  pull_request:
+    types: [opened, edited, reopened]
+
+permissions:
+  # Need `contents: read` to checkout the repository.
+  # Need `contents: write` to update the step metadata.
+  contents: write
+
+jobs:
+  # Get the current step to only run the main job when the learner is on the same step.
+  get_current_step:
+    name: 현재 단계 번호 확인
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - id: get_step
+        run: |
+          echo "current_step=$(cat ./.github/steps/-step.txt)" >> $GITHUB_OUTPUT
+    outputs:
+      current_step: ${{ steps.get_step.outputs.current_step }}
+
+  on_fix_the_sidebar_pr_body:
+    name: PR 본문에 올바른 닫기 메시지가 있는지 확인
+    needs: get_current_step
+
+    # We will only run this action when:
+    # 1. This repository isn't the template repository.
+    # 2. The step is currently 3.
+    # Reference: https://docs.github.com/en/actions/learn-github-actions/contexts
+    # Reference: https://docs.github.com/en/actions/learn-github-actions/expressions
+    if: >-
+      ${{ !github.event.repository.is_template
+          && needs.get_current_step.outputs.current_step == 3 }}
+
+    # We'll run Ubuntu for performance instead of Mac or Windows.
+    runs-on: ubuntu-latest
+
+    steps:
+      # We'll need to check out the repository so that we can edit the README.
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Let's get all the branches.
+
+      - name: GitHub PR 컨텍스트 덤프
+        id: github_pull_request_step
+        run: echo '${{ toJSON(github.event.pull_request) }}'
+
+      - name: PR 본문에 필수 닫기 메시지가 있는지 확인
+        if: contains(github.event.pull_request.body, 'Closes')
+        run: echo "Found _Closes_ message with autolinked issue in the body of PR $NUMBER"
+        env:
+          NUMBER: ${{ github.event.pull_request.number }}
+
+      # Update README from step 3 to step X.
+      - name: X단계로 업데이트
+        uses: skills/action-update-step@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          from_step: 3
+          to_step: X
+
+      - name: Workshop Tracker에 완료 보고
+        if: success()
+        continue-on-error: true
+        run: |
+          SESSION_ID=$(jq -r '.sessionId' .github/workshop-config.json)
+          TRACK=$(jq -r '.track' .github/workshop-config.json)
+          API_URL=$(jq -r '.apiUrl' .github/workshop-config.json)
+          curl -s -X POST "$API_URL" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "sessionId": "'"$SESSION_ID"'",
+              "type": "end",
+              "step": 3,
+              "description": "사이드바 수정",
+              "username": "'"$GITHUB_ACTOR"'",
+              "repo": "'"$GITHUB_REPOSITORY"'",
+              "track": "'"$TRACK"'",
+              "runId": "'"$GITHUB_RUN_ID"'"
+            }' || true
