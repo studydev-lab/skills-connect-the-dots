@@ -14,34 +14,38 @@ _저장소를 탐색할 때 유용한 팁들._
 </header>
 
 <!--
-  <<< Author notes: Step 1 >>>
-  Choose 3-5 steps for your course.
-  The first step is always the hardest, so pick something easy!
-  Link to docs.github.com for further explanations.
-  Encourage users to open new tabs for steps!
+  <<< Author notes: Step 2 >>>
+  Start this step by acknowledging the previous step.
+  Define terms and link to docs.github.com.
 -->
 
-## 1단계: 중복 이슈 해결하기
+## 2단계: 히스토리에서 커밋 찾기
 
-_과정에 오신 것을 환영합니다 :tada:_
+_중복 표시를 해주셔서 감사합니다 :wave:_
 
-GitHub에는 다른 정보를 참조하는 특별한 기능이 있습니다. 예를 들어, 다른 이슈나 풀 리퀘스트를 번호로 참조하면 해당 번호가 하이퍼링크로 변환됩니다. 동시에 참조된 이슈나 풀 리퀘스트에 교차 참조(cross-reference)가 생성됩니다. 이 양방향 참조는 GitHub 전체에서 정보의 관계를 추적하는 데 도움이 됩니다.
+버전 관리의 중요한 부분은 과거를 되돌아볼 수 있는 능력입니다. `git blame`을 사용하고 커밋 뒤에 숨겨진 이야기를 찾으면, 단순히 코드에 대해 누군가를 _탓하는_ 것 이상의 일을 할 수 있습니다. 커밋이 왜 만들어졌는지 그 이야기를 볼 수 있습니다. 관련된 풀 리퀘스트는 무엇인가? 누가 풀 리퀘스트를 승인했는가? 머지되기 전에 해당 커밋에 어떤 테스트가 실행되었는가?
 
-![이슈에서 PR을 연결하고, PR에서 이슈로의 교차 참조가 표시된 스크린샷](https://user-images.githubusercontent.com/6351798/172456846-2daec570-08b0-4ffa-a7cb-41acc50b836e.png)
+히스토리에서 정보를 찾는 분명한 이유는 히스토리를 알기 위해서입니다. 이슈와 풀 리퀘스트를 통해 우리는 최소한의 정보가 아닌 더 완전한 히스토리 이야기를 볼 수 있습니다.
 
-여러 팀원이 협업하다 보면 이슈가 중복될 수 있습니다. 위 예시에서 새 이슈 `#8346`은 이전 이슈 `#8249`의 중복입니다. 교차 참조 기능을 통해 이러한 중복을 추적하고 적절하게 이슈를 닫을 수 있습니다.
+### `git blame`이란?
 
-### 참조 만들기
+`git blame`은 파일의 각 줄을 마지막으로 수정한 리비전과 작성자를 보여주는 Git 기능입니다. 누가 커밋했는지, 언제, 심지어 왜 했는지까지 이 방법으로 알 수 있습니다. 특정 변경을 누가 도입했는지 확실하지 않다면 `git blame`을 사용하여 찾을 수 있습니다. `git blame`이라는 이름이 다소 비난하는 것처럼 들리지만, 결정의 맥락을 이해하는 데 사용할 수 있습니다.
 
-다른 이슈에 연결하면 GitHub 내에서 자동으로 참조가 생성됩니다. 사실 전체 링크를 포함하지 않아도 됩니다. 댓글에 `#5`를 입력하면 이슈 또는 풀 리퀘스트 번호 5로 연결되는 링크로 변환됩니다.
+### 보안 해시 알고리즘(SHA)이란?
 
-교차 링크를 만들려면 `#` 기호 바로 뒤에 이슈나 풀 리퀘스트 제목을 입력하세요. GitHub가 올바른 위치로 연결될 이슈나 풀 리퀘스트를 추천합니다. 더 자세한 내용은 [자동 링크 참조 및 URL](https://docs.github.com/en/articles/autolinked-references-and-urls) 문서를 확인하세요.
+SHA는 특정 객체에 대한 참조입니다. 이 경우에는 커밋에 대한 참조입니다. GitHub에서 특정 커밋을 보면 누가 도입한 변경인지, 풀 리퀘스트의 일부였는지 확인할 수 있습니다.
 
-### :keyboard: 활동: 교차 연결된 이슈 찾아서 닫기
+### :keyboard: 활동: 히스토리에서 커밋 찾기
 
-1. 이슈 #1 (Welcome)로 이동합니다
-2. "Duplicate of #2"를 댓글로 입력하고 이슈 #1을 닫습니다
-3. 약 20초 기다린 후 이 페이지(지침을 따르고 있는 페이지)를 새로고침합니다. [GitHub Actions](https://docs.github.com/en/actions)가 자동으로 다음 단계로 업데이트합니다.
+1. 저장소의 Code 탭으로 이동합니다
+   - _팁: 이전에 새 탭에서 저장소를 만들었을 수 있습니다_
+2. `docs`를 클릭하여 `/docs` 디렉터리로 이동합니다
+3. `_sidebar.md`를 클릭하여 파일을 확인합니다
+4. 파일 상단에서 **Blame**을 클릭하여 최근 리비전의 세부 정보를 확인합니다
+5. 커밋 메시지인 `add sidebar to documentation`을 클릭하여 커밋 세부 정보를 확인합니다
+6. SHA의 처음 7자를 복사합니다 (`commit` 뒤에 나열된 40자 16진수 문자열의 처음 7자)
+7. 이슈 #2에 6단계에서 복사한 SHA를 댓글 텍스트로 추가하고 "Comment" 버튼을 클릭합니다
+8. 약 20초 기다린 후 이 페이지(지침을 따르고 있는 페이지)를 새로고침합니다. [GitHub Actions](https://docs.github.com/en/actions)가 자동으로 다음 단계로 업데이트합니다.
 
 <footer>
 
