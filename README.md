@@ -14,53 +14,34 @@ _저장소를 탐색할 때 유용한 팁들._
 </header>
 
 <!--
-  <<< Author notes: Course start >>>
-  Include start button, a note about Actions minutes,
-  and tell the learner why they should take the course.
+  <<< Author notes: Step 1 >>>
+  Choose 3-5 steps for your course.
+  The first step is always the hardest, so pick something easy!
+  Link to docs.github.com for further explanations.
+  Encourage users to open new tabs for steps!
 -->
 
-## 환영합니다
+## 1단계: 중복 이슈 해결하기
 
-히스토리가 많은 저장소에서 작업해 본 적이 있나요? 과거에 관련 이슈와 풀 리퀘스트를 추적해야 했거나, 특정 변경을 누가 커밋했는지 찾아야 했던 경험이 있을 겁니다. 이런 상황을 겪어 봤다면, 작업 공간을 탐색하는 것이 얼마나 중요한지 알 것입니다.
+_과정에 오신 것을 환영합니다 :tada:_
 
-- **대상**: 개발자, GitHub 사용자, Git 초보자, 학생, 관리자, 팀.
-- **학습 내용**:
-  - 관련 이슈와 풀 리퀘스트 찾기.
-  - 히스토리를 검색하여 맥락 파악하기.
-  - GitHub 내에서 연결을 만들어 다른 사람들이 정보를 쉽게 찾도록 돕기.
-- **만들게 될 것**: 기존 커밋, 중복 이슈, 수정할 콘텐츠 결함이 있는 저장소.
-- **사전 요구 사항**: 이 과정을 수강하기 전에 GitHub Docs의 [GitHub 빠른 시작](https://docs.github.com/en/get-started/quickstart) 소개와 GitHub Skills의 [GitHub 소개](https://github.com/skills-kr/introduction-to-github) 과정을 먼저 살펴보세요.
-- **소요 시간**: 이 과정은 완료까지 15분 미만 소요됩니다.
+GitHub에는 다른 정보를 참조하는 특별한 기능이 있습니다. 예를 들어, 다른 이슈나 풀 리퀘스트를 번호로 참조하면 해당 번호가 하이퍼링크로 변환됩니다. 동시에 참조된 이슈나 풀 리퀘스트에 교차 참조(cross-reference)가 생성됩니다. 이 양방향 참조는 GitHub 전체에서 정보의 관계를 추적하는 데 도움이 됩니다.
 
-이 과정에서 다음을 수행합니다:
+![이슈에서 PR을 연결하고, PR에서 이슈로의 교차 참조가 표시된 스크린샷](https://user-images.githubusercontent.com/6351798/172456846-2daec570-08b0-4ffa-a7cb-41acc50b836e.png)
 
-1. 중복 이슈 해결하기.
-2. 히스토리에서 커밋 찾기.
-3. 깨진 사이드바 수정하기.
+여러 팀원이 협업하다 보면 이슈가 중복될 수 있습니다. 위 예시에서 새 이슈 `#8346`은 이전 이슈 `#8249`의 중복입니다. 교차 참조 기능을 통해 이러한 중복을 추적하고 적절하게 이슈를 닫을 수 있습니다.
 
-### 이 과정을 시작하는 방법
+### 참조 만들기
 
-<!-- For start course, run in JavaScript:
-'https://github.com/new?' + new URLSearchParams({
-  template_owner: 'skills-kr',
-  template_name: 'connect-the-dots',
-  owner: '@me',
-  name: 'skills-connect-the-dots',
-  description: 'My clone repository',
-  visibility: 'public',
-}).toString()
--->
+다른 이슈에 연결하면 GitHub 내에서 자동으로 참조가 생성됩니다. 사실 전체 링크를 포함하지 않아도 됩니다. 댓글에 `#5`를 입력하면 이슈 또는 풀 리퀘스트 번호 5로 연결되는 링크로 변환됩니다.
 
-[![start-course](https://user-images.githubusercontent.com/1221423/235727646-4a590299-ffe5-480d-8cd5-8194ea184546.svg)](https://github.com/new?template_owner=skills-kr&template_name=connect-the-dots&owner=%40me&name=skills-connect-the-dots&description=My+clone+repository&visibility=public)
+교차 링크를 만들려면 `#` 기호 바로 뒤에 이슈나 풀 리퀘스트 제목을 입력하세요. GitHub가 올바른 위치로 연결될 이슈나 풀 리퀘스트를 추천합니다. 더 자세한 내용은 [자동 링크 참조 및 URL](https://docs.github.com/en/articles/autolinked-references-and-urls) 문서를 확인하세요.
 
-1. **실습 시작** 버튼을 우클릭하고 새 탭에서 링크를 엽니다.
-2. 새 탭에서 대부분의 항목이 자동으로 채워집니다.
-   - 소유자는 개인 계정 또는 저장소를 호스팅할 조직을 선택합니다.
-   - 공개 저장소를 만드는 것을 권장합니다. 비공개 저장소는 [Actions 사용 시간](https://docs.github.com/en/billing/managing-billing-for-github-actions/about-billing-for-github-actions)을 소모합니다.
-   - 아래로 스크롤하여 폼 하단의 **Create repository** 버튼을 클릭합니다.
-3. 새 저장소가 생성된 후 약 20초 기다린 다음 페이지를 새로고침합니다. 새 저장소의 README에 있는 단계별 지침을 따르세요.
+### :keyboard: 활동: 교차 연결된 이슈 찾아서 닫기
 
-> **참고**: 이 실습은 [skills/connect-the-dots](https://github.com/skills/connect-the-dots)를 기반으로 한글화하고, [🏆 GitHub Skills Workshop Dashboard](https://github-skills.studydev.com)와 연계되어 있습니다.
+1. 이슈 #1 (Welcome)로 이동합니다
+2. "Duplicate of #2"를 댓글로 입력하고 이슈 #1을 닫습니다
+3. 약 20초 기다린 후 이 페이지(지침을 따르고 있는 페이지)를 새로고침합니다. [GitHub Actions](https://docs.github.com/en/actions)가 자동으로 다음 단계로 업데이트합니다.
 
 <footer>
 
